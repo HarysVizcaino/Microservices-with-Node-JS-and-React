@@ -1,0 +1,59 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+build:
+  artifacts:
+    - image: harysvizcaino/client
+      context: client
+      sync:
+        manual:
+          - src: src/**/*.js
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: harysvizcaino/comments
+      context: comments
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: harysvizcaino/event-bus
+      context: event-bus
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: harysvizcaino/moderation
+      context: moderation
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: harysvizcaino/posts
+      context: posts
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: harysvizcaino/query
+      context: query
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+deploy:
+  kubectl: {}
